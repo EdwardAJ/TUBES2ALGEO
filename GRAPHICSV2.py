@@ -30,6 +30,9 @@ Neff = 100
 #PosZ[Neff] , Array berisi posisi Z yang dimasukkan oleh user
 #Perintah[Neff], Array berisi perintah yang dimasukkan oleh user, kalau perintah tidak sesuai maka program looping ulang
 
+#Deklarasi Input Awal
+msk = "halo"
+
 
 def LogicDraw() :
     glMatrixMode(GL_PROJECTION)
@@ -219,16 +222,22 @@ def display() :
     DrawAxis()
     DrawGuide()
 
-
+    LogicDraw()
     glFlush()
     glutSwapBuffers()
+
+
 
     return
 
 def reshape (widthtemp , heighttemp) :
+    global width,height
+    widthtemp = width
+    heighttemp = height
     asp = widthtemp / heighttemp
-    glViewport(0,0, widthtemp, heighttemp)
+    glViewport(0,0, (widthtemp), (heighttemp))
     LogicDraw()
+
 
 def keyboardSpecial(key, x, y):
     global th
@@ -273,11 +282,12 @@ def keyboardKey (bkey , x , y) :
     LogicDraw()
     glutPostRedisplay()
 
-def main () :
 
+
+
+def Draw3DWorld () :
     glutInit(sys.argv)
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
-
     glutInitWindowSize(width, height)
     glutCreateWindow("3D SYSTEM BETA")
     glutDisplayFunc(display)
@@ -285,6 +295,14 @@ def main () :
     glutSpecialFunc(keyboardSpecial)
     glutKeyboardFunc(keyboardKey)
     glutMainLoop()
+    return
+
+def main () :
+    global msk
+    print("Selamat Datang di TUBES 2 ALGEO!")
+    msk = input("Silakan input apakah Anda mau 2D atau 3D!\n")
+    if (msk == "3D") :
+        Draw3DWorld()
 
     return
 
