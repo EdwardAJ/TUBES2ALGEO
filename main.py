@@ -15,7 +15,7 @@ import threading
 
 
 #Deklarasi Variabel Global
-dim = 8.0 #msk
+dim = 30.0 #msk
 width = 1200 #lebar window
 height = 675 #tinggi window
 th = 0 #azimut / horizon angle
@@ -71,6 +71,25 @@ Neff = 100
 #Deklarasi Input Awal
 global msk
 msk = "halo"
+
+def MakeMatrix():
+    global firstmatrix
+    rows = int(input('Masukkan jumlah titik :'))
+
+    for i in range(0,rows): #total row
+            row=[]
+            for j in range(0,3): #total column
+                row.append(1.0) #adding 0 value for each column for this row
+            matrix.append(row) #add fully defined column into the row
+
+
+    for i in range(0,rows): #total row
+        for j in range(0,2): #total column
+            elemen = float(input('Elemen '))
+            matrix[i][j] = elemen
+
+    print(matrix)
+    firstmatrix = deepcopy(matrix)
 
 def translate():
     global koordinatkubus
@@ -253,13 +272,25 @@ def custom():
         d = float(input('d :'))
         e = [[a,c,0],[b,d,0],[0,0,1]]
         matrix = matmult(matrix,e)
+    elif (msk == 3):
+        a = float(input('a :'))
+        b = float(input('b :'))
+        c = float(input('c :'))
+        d = float(input('d :'))
+        e = float(input('e :'))
+        f = float(input('f :'))
+        g = float(input('g :'))
+        h = float(input('h :'))
+        i = float(input('i :'))
+        j = [[a,d,g,0],[b,e,h,0],[c,f,i,0],[0,0,0,1]]
+        matrix = matmult(matrix,j)
     #print(koordinatkubus)
     return
 
 def reset():
     global koordinatkubus
     global matrix
-    global firstmatrix
+    #global firstmatrix
     if (msk == 2):
         matrix = deepcopy(firstmatrix)
     elif (msk == 3):
@@ -296,7 +327,6 @@ def multiple():
 
 def matmult(a,b):
     zip_b = zip(*b)
-    # uncomment next line if python 3 :
     zip_b = list(zip_b)
     return [[sum(ele_a*ele_b for ele_a, ele_b in zip(row_a, col_b))
              for col_b in zip_b] for row_a in a]
@@ -530,17 +560,17 @@ def keyboardKey (bkey , x , y) :
     global length
     key = bkey.decode("utf-8")
     if (key == 's') :
-        fov = fov + 1
+        fov = fov + 5
     elif (key == 'w') :
-        fov = fov - 1
+        fov = fov - 5
     elif (key == 'd') :
-        dim = dim + 1
+        dim = dim + 10
     elif (key == 'a') :
-        dim = dim - 1
+        dim = dim -10
     elif (key == 'l') :
-        length = length + 5
+        length = length + 50
     elif (key == 'k') :
-        length = length - 5
+        length = length - 50
     elif (key == 't') :
          glutLeaveMainLoop()
 
@@ -563,23 +593,7 @@ def Draw3DWorld () :
     
     return
 
-def MakeMatrix():
-    rows = int(input('Masukkan jumlah titik :'))
 
-    for i in range(0,rows): #total row
-            row=[]
-            for j in range(0,3): #total column
-                row.append(1.0) #adding 0 value for each column for this row
-            matrix.append(row) #add fully defined column into the row
-
-
-    for i in range(0,rows): #total row
-        for j in range(0,2): #total column
-            elemen = float(input('Elemen '))
-            matrix[i][j] = elemen
-
-    print(matrix)
-    firstmatrix = deepcopy(matrix)
 
 def init():
     glClearColor(0.0,0.0,0.0,1.0)
@@ -625,6 +639,8 @@ def Draw2DWorld():
 def main3():
     Draw2DWorld()
     display()
+    if(command == 'quit'):
+        sys.exit
 
 def main2():
     Draw3DWorld()
@@ -667,6 +683,9 @@ def main1() :
             elif(command == 'multiple'):
                 multiple()
                 glutPostRedisplay()
+            elif(command == 'custom'):
+                custom()
+                glutPostRedisplay()
 
     elif (msk == 2):
         MakeMatrix()
@@ -702,6 +721,8 @@ def main1() :
             elif(command == 'multiple'):
                 multiple()
                 glutPostRedisplay()
+            elif(command == 'quit'):
+                sys.exit()
             
     return
 
