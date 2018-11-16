@@ -59,6 +59,7 @@ global firstkoordinatkubus
 firstkoordinatkubus = deepcopy(koordinatkubus)
 global matrix
 global firstmatrix
+global command
 matrix=[] #define empty matrix
 
 #Deklarasi Array dan Variabel2nya yang dibutuhkan
@@ -581,6 +582,8 @@ def keyboardKey (bkey , x , y) :
 
 
 def Draw3DWorld () :
+    global command
+
     glutInit(sys.argv)
     glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGB | GLUT_DEPTH)
     glutInitWindowSize(width, height)
@@ -590,6 +593,9 @@ def Draw3DWorld () :
     glutSpecialFunc(keyboardSpecial)
     glutKeyboardFunc(keyboardKey)
     glutMainLoop()
+    if(command =='quit'):
+        #sys.exit
+        glutLeaveMainLoop()
     
     return
 
@@ -625,22 +631,23 @@ def plotmatrix():
     glFlush()
 
 def Draw2DWorld():
+    global command
     glutInit(sys.argv)
     glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB)
     glutInitWindowSize(width, height)
     glutCreateWindow("2D SYSTEM BETA")
     glutDisplayFunc(plotmatrix)
-
     init()
     glutMainLoop()
+    if(command =='quit'):
+        #sys.exit
+        glutLeaveMainLoop()
     return
 
 
 def main3():
     Draw2DWorld()
     display()
-    if(command == 'quit'):
-        sys.exit
 
 def main2():
     Draw3DWorld()
@@ -649,6 +656,7 @@ def main2():
 def main1() :
     global koordinatkubus
     global msk
+    global command
     print("Selamat Datang di TUBES 2 ALGEO!")
     msk = int(input("Silakan input apakah Anda mau 2D atau 3D!\n"))
     if (msk == 3):
@@ -686,6 +694,11 @@ def main1() :
             elif(command == 'custom'):
                 custom()
                 glutPostRedisplay()
+            elif(command == 'quit'):
+                #sys.exit
+                glutLeaveMainLoop()
+                break
+
 
     elif (msk == 2):
         MakeMatrix()
@@ -722,7 +735,9 @@ def main1() :
                 multiple()
                 glutPostRedisplay()
             elif(command == 'quit'):
-                sys.exit()
+                #sys.exit
+                glutLeaveMainLoop()
+                break
             
     return
 
