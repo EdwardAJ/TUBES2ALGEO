@@ -596,7 +596,7 @@ def Draw3DWorld () :
     if(command =='quit'):
         #sys.exit
         glutLeaveMainLoop()
-    
+
     return
 
 
@@ -738,7 +738,7 @@ def main1() :
                 #sys.exit
                 glutLeaveMainLoop()
                 break
-            
+
     return
 
 
@@ -748,7 +748,7 @@ thread3 = threading.Thread(target = main3)
 thread2.start()
 
 '''
-if __name__ == '__main__': 
+if __name__ == '__main__':
     main1()
     main2()
 '''
