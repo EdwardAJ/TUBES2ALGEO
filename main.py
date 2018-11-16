@@ -84,12 +84,12 @@ def MakeMatrix():
             matrix.append(row) #add fully defined column into the row
 
 
-    for i in range(0,rows): #total row
-        for j in range(0,2): #total column
-            elemen = float(input('Elemen '))
-            matrix[i][j] = elemen
+   for i in range(0,rows): #total row
+        elemen = input(f"titik {i+1} :")
+        z = elemen.split(' ')
+        matrix[i][0] = float(z[0]);
+        matrix[i][1] = float(z[1]);
 
-    print(matrix)
     firstmatrix = deepcopy(matrix)
 
 def translate():
