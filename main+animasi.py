@@ -167,27 +167,29 @@ def dilate():
         timetemp = time.time()
 
         if (abs(k) > 1):
-            while (abs(deltak) < abs(k)):
-                deltak = deltak + 0.01*k
+            while (abs(k) > abs(deltak)):
+                deltak = round ((deltak + (k-1)/10),7)
                 b = [[deltak,0,0],[0,deltak,0],[0,0,1]]
                 matrix = matmult(tempkoordinat,b)
                 newtime = time.time()
                 sleeptime = ((1000/60) - (newtime - timetemp))/1000.0
+                glutPostRedisplay()
                 if sleeptime > 0:
                     time.sleep(sleeptime)
                 timetemp = newtime
-                glutPostRedisplay()
+
         else:
             while (deltak > k):
-                deltak = deltak - 0.01*abs(k)
+                deltak = round ((deltak - (1-k)/10),7)
                 b = [[deltak,0,0],[0,deltak,0],[0,0,1]]
                 matrix= matmult(tempkoordinat,b)
                 newtime = time.time()
                 sleeptime = ((1000/60) - (newtime - timetemp))/1000.0
+                glutPostRedisplay()
                 if sleeptime > 0:
                     time.sleep(sleeptime)
                 timetemp = newtime
-                glutPostRedisplay()
+
 
     elif(msk == 3):
         k = float(input("k :"))
@@ -196,29 +198,33 @@ def dilate():
 
         #MASIH ADA BUG
         if (abs(k) > 1):
-
-            while (abs(deltak) < abs(k)):
-                deltak = deltak + 0.01*k
+            deltak = 1
+            while (abs(k) > abs(deltak)):
+                deltak = round ((deltak + (k-1)/10),7)
+                print(deltak)
                 b = [[deltak,0,0,0],[0,deltak,0,0],[0,0,deltak,0],[0,0,0,1]]
                 koordinatkubus = matmult(tempkoordinat,b)
                 newtime = time.time()
                 sleeptime = ((1000/60) - (newtime - timetemp))/1000.0
+                glutPostRedisplay()
                 if sleeptime > 0:
                     time.sleep(sleeptime)
                 timetemp = newtime
-                glutPostRedisplay()
+
         else:
 
             while (deltak > k):
-                deltak = deltak - 0.01*abs(k)
+                deltak = round ((deltak - (1-k)/10),7)
+                print(deltak)
                 b = [[deltak,0,0,0],[0,deltak,0,0],[0,0,deltak,0],[0,0,0,1]]
                 koordinatkubus = matmult(tempkoordinat,b)
                 newtime = time.time()
+                glutPostRedisplay()
                 sleeptime = ((1000/60) - (newtime - timetemp))/1000.0
                 if sleeptime > 0:
                     time.sleep(sleeptime)
                 timetemp = newtime
-                glutPostRedisplay()
+
 
     return
 
@@ -242,15 +248,17 @@ def rotate():
     elif(msk == 3):
         sumbu = input('sumbu :')
         degree = float(input('degree :'))
-        degree = degree * math.pi / 180
-
+        degree = math.radians(degree)
+        print(degree)
         deltadeg = 0
         timetemp = time.time()
         tempkoordinat = koordinatkubus
 
         if(sumbu == 'x'):
             while (abs(deltadeg) < abs(degree)):
-                deltadeg = deltadeg + 0.01*degree
+                print(deltadeg)
+                deltadeg = round ((deltadeg + (degree-0)/10),20)
+
                 b = [[1,0,0,0],[0,math.cos(deltadeg),-math.sin(deltadeg),0],[0,math.sin(deltadeg),math.cos(deltadeg),0],[0,0,0,1]]
                 koordinatkubus = matmult(tempkoordinat,b)
                 newtime = time.time()
@@ -262,7 +270,7 @@ def rotate():
 
         elif(sumbu == 'y'):
             while (abs(deltadeg) < abs(degree)):
-                deltadeg = deltadeg + 0.01*degree
+                deltadeg = round ((deltadeg + (degree-0)/10),20)
                 b = [[math.cos(deltadeg),0,math.sin(deltadeg),0],[0,1,0,0],[-math.sin(deltadeg),0,math.cos(deltadeg),0],[0,0,0,1]]
                 koordinatkubus = matmult(tempkoordinat,b)
                 newtime = time.time()
@@ -274,7 +282,7 @@ def rotate():
 
         elif(sumbu == 'z'):
             while (abs(deltadeg) < abs(degree)):
-                deltadeg = deltadeg + 0.01*degree
+                deltadeg = round ((deltadeg + (degree-0)/10),20)
                 b = [[math.cos(deltadeg),-math.sin(deltadeg),0,0],[math.sin(deltadeg),math.cos(deltadeg),0,0],[0,0,1,0],[0,0,0,1]]
                 koordinatkubus = matmult(tempkoordinat,b)
                 newtime = time.time()
@@ -498,33 +506,35 @@ def stretch():
             if (abs(k) > 1):
                 deltak = 1
                 while (abs(deltak) < abs(k)):
-                    deltak = deltak + 0.02*k
+                    deltak = round ((deltak + (k-1)/10),7)
                     c = [[deltak,0,0],[0,1,0],[0,0,1]]
                     matrix = matmult(tempkoordinat,c)
+                    glutPostRedisplay()
                     newtime = time.time()
                     sleeptime = ((1000/60) - (newtime - timetemp))/1000.0
                     if sleeptime > 0:
                         time.sleep(sleeptime)
                     timetemp = newtime
-                    glutPostRedisplay()
+
             else:
                 deltak = 1
                 while (deltak > k):
-                    deltak = deltak - 0.01*abs(k)
+                    deltak = round ((deltak - (1-k)/10),7)
                     c = [[deltak,0,0],[0,1,0],[0,0,1]]
                     matrix = matmult(tempkoordinat,c)
+                    glutPostRedisplay()
                     newtime = time.time()
                     sleeptime = ((1000/60) - (newtime - timetemp))/1000.0
                     if sleeptime > 0:
                         time.sleep(sleeptime)
                     timetemp = newtime
-                    glutPostRedisplay()
+
 
         elif(param == 'y'):
                 if (abs(k) > 1):
                     deltak = 1
                     while (abs(deltak) < abs(k)):
-                        deltak = deltak + 0.02*k
+                        deltak = round ((deltak + (k-1)/10),7)
                         c = [[1,0,0],[0,deltak,0],[0,0,1]]
                         matrix = matmult(tempkoordinat,c)
                         newtime = time.time()
@@ -536,7 +546,7 @@ def stretch():
                 else:
                     deltak = 1
                     while (deltak > k):
-                        deltak = deltak - 0.01*abs(k)
+                        deltak = round ((deltak - (1-k)/10),7)
                         c = [[1,0,0],[0,deltak,0],[0,0,1]]
                         matrix = matmult(tempkoordinat,c)
                         newtime = time.time()
@@ -559,7 +569,7 @@ def stretch():
             if (abs(k) > 1):
                 deltak = 1
                 while (abs(deltak) < abs(k)):
-                    deltak = deltak + 0.02*k
+                    deltak = round ((deltak + (k-1)/10),7)
                     c = [[deltak,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]]
                     koordinatkubus = matmult(tempkoordinat,c)
                     newtime = time.time()
@@ -571,7 +581,7 @@ def stretch():
             else:
                 deltak = 1
                 while (deltak > k):
-                    deltak = deltak - 0.01*abs(k)
+                    deltak = round ((deltak - (1-k)/10),7)
                     c = [[deltak,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]]
                     koordinatkubus = matmult(tempkoordinat,c)
                     newtime = time.time()
@@ -586,7 +596,7 @@ def stretch():
             if (abs(k) > 1):
                 deltak = 1
                 while (abs(deltak) < abs(k)):
-                    deltak = deltak + 0.02*k
+                    deltak = round ((deltak + (k-1)/10),7)
                     c = [[1,0,0,0],[0,deltak,0,0],[0,0,1,0],[0,0,0,1]]
                     koordinatkubus = matmult(tempkoordinat,c)
                     newtime = time.time()
@@ -598,7 +608,7 @@ def stretch():
             else:
                 deltak = 1
                 while (deltak > k):
-                    deltak = deltak - 0.01*abs(k)
+                    deltak = round ((deltak - (1-k)/10),7)
                     c = [[1,0,0,0],[0,deltak,0,0],[0,0,1,0],[0,0,0,1]]
                     koordinatkubus = matmult(tempkoordinat,c)
                     newtime = time.time()
@@ -613,7 +623,7 @@ def stretch():
             if (abs(k) > 1):
                 deltak = 1
                 while (abs(deltak) < abs(k)):
-                    deltak = deltak + 0.02*k
+                    deltak = round ((deltak + (k-1)/10),7)
                     c = [[1,0,0,0],[0,1,0,0],[0,0,deltak,0],[0,0,0,1]]
                     koordinatkubus = matmult(tempkoordinat,c)
                     newtime = time.time()
@@ -625,7 +635,7 @@ def stretch():
             else:
                 deltak = 1
                 while (deltak > k):
-                    deltak = deltak - 0.01*abs(k)
+                    deltak = round ((deltak - (1-k)/10),7)
                     c = [[1,0,0,0],[0,1,0,0],[0,0,deltak,0],[0,0,0,1]]
                     koordinatkubus = matmult(tempkoordinat,c)
                     newtime = time.time()
@@ -916,7 +926,7 @@ def PrintInfoGuide (x, y ,z, text) :
 
 def DrawInfo () :
     global length
-    PrintWindow(koordinatkubus[3][0],koordinatkubus[3][1],koordinatkubus[3][2],"x = \n" + str(round(koordinatkubus[3][0],2)) +",\n y = " + str(round(koordinatkubus[3][1],2)) + ",\n z = " + str(round(koordinatkubus[3][2],2)))
+    PrintWindow(koordinatkubus[3][0],koordinatkubus[3][1],koordinatkubus[3][2],"x = \n" + str((koordinatkubus[3][0])) +",\n y = " + str((koordinatkubus[3][1])) + ",\n z = " + str((koordinatkubus[3][2])))
     PrintWindow(length+10,0.0,0.0,"X")
     PrintWindow(0.0,length+10,0.0,"Y")
     PrintWindow(0.0,0.0,length+10,"Z")
@@ -1128,6 +1138,7 @@ def main1() :
                 #glutPostRedisplay()
             elif(command == 'dilate'):
                 dilate()
+                glutPostRedisplay()
             elif(command == 'rotate'):
                 rotate()
 

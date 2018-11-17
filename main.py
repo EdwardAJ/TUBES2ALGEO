@@ -83,8 +83,7 @@ def MakeMatrix():
                 row.append(1.0) #adding 0 value for each column for this row
             matrix.append(row) #add fully defined column into the row
 
-
-   for i in range(0,rows): #total row
+    for i in range(0,rows): #total row
         elemen = input(f"titik {i+1} :")
         z = elemen.split(' ')
         matrix[i][0] = float(z[0]);
@@ -489,7 +488,7 @@ def PrintWindow (x, y ,z, text) :
 
 def DrawInfo () :
     global length
-    PrintWindow(1.0,1.0,1.0,"1.0,1.0,1.0")
+    PrintWindow(koordinatkubus[3][0],koordinatkubus[3][1],koordinatkubus[3][2],"x = \n" + str((koordinatkubus[3][0])) +",\n y = " + str((koordinatkubus[3][1])) + ",\n z = " + str((koordinatkubus[3][2])))
     PrintWindow(length,0.0,0.0,"X")
     PrintWindow(0.0,length,0.0,"Y")
     PrintWindow(0.0,0.0,length,"Z")
