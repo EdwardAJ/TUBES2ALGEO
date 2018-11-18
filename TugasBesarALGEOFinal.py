@@ -86,7 +86,8 @@ def MakeMatrix():
                 row.append(1.0) #adding 0 value for each column for this row
             matrix.append(row) #add fully defined column into the row
 
-
+    print("Silahkan masukan dengan format titik 1 : x y")
+    print("Sebagai contoh = titik1: 100 50")
     for i in range(0,rows): #total row
         elemen = input(f"titik {i+1} :")
         z = elemen.split(' ')
@@ -1226,8 +1227,11 @@ def main1() :
     global koordinatkubus
     global msk
     global command
-    print("Selamat Datang di TUBES 2 ALGEO!")
-    msk = int(input("Silakan input apakah Anda mau 2D atau 3D!\n"))
+    print("Selamat Datang di TUBES 2 ALGEO!\n")
+    print("Silakan input apakah Anda mau 2D atau 3D!");
+    print("Ketik angka 2 untuk 2 Dimensi")
+    print("Ketik angka 3 untuk 3 Dimensi\n")
+    msk = int(input("> "))
     if (msk == 3):
         thread.start() #Window 3d World
         #thread.join()
